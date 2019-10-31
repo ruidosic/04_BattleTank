@@ -19,7 +19,7 @@ public:
 	virtual void BeginPlay() override;
 
 private:
-
+	void AddPlayerWidgetToViewport();
 	class UUserWidget* PlayerUI;
 	TSubclassOf<class UUserWidget> PlayerUIClass = nullptr;
 	class ATank* GetControlledTank() const;

@@ -16,15 +16,31 @@ ATankPlayerController::ATankPlayerController(const FObjectInitializer& ObjectIni
 	}
 }
 
-void ATankPlayerController::BeginPlay()
+
+void ATankPlayerController::AddPlayerWidgetToViewport()
 {
-	Super::BeginPlay();
 	PlayerUI = CreateWidget<UUserWidget>(this, PlayerUIClass, NAME_None);
 	PlayerUI->AddToViewport(0);
 }
 
+
+void ATankPlayerController::BeginPlay()
+{
+	Super::BeginPlay(); 
+	AddPlayerWidgetToViewport();
+	auto ControlledTank = GetControlledTank();
+	if (ControlledTank)
+	{
+		UE_LOG(LogTemp, Warning, TEXT("PC possessing the tank: %s"), *ControlledTank->GetName());
+	}
+	else
+	{
+		UE_LOG(LogTemp, Warning, TEXT("PC not possessing the tank"));
+	}
+}
+
+
 ATank * ATankPlayerController::GetControlledTank() const
 {
-	
 	return Cast<ATank>(GetPawn());
 }
